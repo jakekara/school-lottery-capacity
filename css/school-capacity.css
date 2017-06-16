@@ -13,6 +13,7 @@ body{
 .school_box:hover .school_name{
     color: tomato;
     cursor: pointer;
+    border-bottom: 1px solid lightgray;
 }
 
 .legend{
@@ -21,14 +22,16 @@ body{
 
 .box{
     float: left;
-    width: 10px;
-    height: 10px;
-    background-color: lightgray;
-    margin: 1px;
+    /* width: 10px; */
+    /* height: 10px; */
+    /* background-color: lightgray; */
+    /* margin: 1px; */
+    color: gray;
 
 }
 
 .school_name {
+    border-bottom: 1px solid white;
     margin:0px;
     /* margin-bottom: 3px; */
     /* margin-top: 2px; */
@@ -112,4 +115,17 @@ h5.school_name{
     visibility:visible;
     opacity: 1;
     background-color: gold;
+}
+
+#more_toggle{
+    cursor: pointer;
+    color: tomato;
+    text-align: center;
+    border-bottom: 1px solid white;
+}
+
+#more_toggle:hover{
+    border-bottom: 1px solid lightgray;
+    color: lightskyblue;
+    text-align: center;
 }

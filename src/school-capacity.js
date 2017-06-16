@@ -4,8 +4,30 @@
 
 /* depedencies */
 
-const d3 = require("d3");
+d3 = require("d3");
 const DATA_FILE = "data/capacity.csv";
+
+var showing_more = true;
+
+var toggle_more = function(){
+
+    var the_rest = d3.selectAll(".school_box:nth-child(n+9");
+    if (showing_more)
+    {
+	the_rest.style("display","none");
+	d3.select("#more_toggle").text("Show all schools");
+	showing_more = false;
+    }
+    else
+    {
+	the_rest.style("display",null);
+	d3.select("#more_toggle").text("Show fewer schools");
+	// var height = the_rest.node().getBoundingClientRect().height;
+	// the_rest.transition().style("height",  "0px");
+	// the_rest.transition().style("height", height + "px");
+	showing_more = true;
+    }
+}
 
 var empty_seat_count = function(r)
 {
@@ -53,7 +75,12 @@ var go = function(d)
 
     // TODO - filter data, remove schools where there are no empty seats
     // d = d.filter(function(a){ return empty_seat_count(a) > 25 ; });
-    d = d.filter(function(a){ return Number(a["Capacity"]) > 0;});
+    d = d.filter(function(a){ return Number(a["Capacity"]) > 0;})
+	.sort(function(a, b){
+	    if (a["School"] < b["School"]) return -1;
+	    return 1;
+	});
+
         
     var div = d3.select("#container");
 
@@ -91,6 +118,7 @@ var go = function(d)
 	.enter()
 	.append("div")
 	.classed("box", true)
+	.html("<i class=\"fa fa-child\" aria-hidden=\"true\"></i>")
 	.classed("empty_seat", true);
 
 
@@ -112,6 +140,10 @@ var go = function(d)
 	    d3.select(this.parentNode).select(".details").style("display",null);
     });
     d3.selectAll(".details").style("display","none");
+    toggle_more();
+    d3.select("#more_toggle").on("click", toggle_more);
+
+    d3.select(".school_box:nth-child(4)").select(".details").style("display",null);
 }
 
 /* get data and go */
